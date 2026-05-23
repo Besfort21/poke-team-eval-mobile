@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'theme.dart';
 import 'services/api_service.dart';
+import 'screens/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  ApiService.warmUp(); // wake Render server silently
+  ApiService.warmUp();
   runApp(const PokeTeamEvalApp());
 }
 
@@ -19,23 +20,7 @@ class PokeTeamEvalApp extends StatelessWidget {
       title: 'PokéTeam Eval',
       debugShowCheckedModeBanner: false,
       theme: buildAppTheme(),
-      home: const PlaceholderHome(),
-    );
-  }
-}
-
-class PlaceholderHome extends StatelessWidget {
-  const PlaceholderHome({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(
-          'POKÉTEAM EVAL',
-          style: AppTextStyles.pixel(14, color: AppColors.primaryBright),
-        ),
-      ),
+      home: const HomeScreen(),
     );
   }
 }
