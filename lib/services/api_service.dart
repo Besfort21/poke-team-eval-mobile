@@ -11,7 +11,7 @@ class ApiService {
   static Future<void> warmUp() async {
     try {
       await http.get(Uri.parse('$_base/api/generations'))
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(seconds: 60));
     } catch (_) {}
   }
 
@@ -21,7 +21,7 @@ class ApiService {
     if (query.length < 2) return [];
     final uri = Uri.parse(
         '$_base/api/pokemon/search?q=${Uri.encodeComponent(query)}&gen=$gen&limit=8');
-    final res = await http.get(uri).timeout(const Duration(seconds: 10));
+    final res = await http.get(uri).timeout(const Duration(seconds: 60));
     if (res.statusCode != 200) return [];
     final data = jsonDecode(res.body);
     return (data['results'] as List)

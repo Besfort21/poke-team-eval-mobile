@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../theme.dart';
 import 'evaluate_screen.dart';
 import 'build_screen.dart';
+import '../services/api_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,6 +13,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentTab = 0;
+  @override
+  void initState() {
+    super.initState();
+    ApiService.warmUp();
+  }
+
 
   static const List<_GenInfo> _gens = [
     _GenInfo(1, 'GEN I',   'Kanto'),
