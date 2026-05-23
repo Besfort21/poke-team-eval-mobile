@@ -20,19 +20,19 @@ class EvalResultsScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          _TeamOverview(team: report.team),
+          TeamOverview(team: report.team),
           const SizedBox(height: 16),
           if (report.roles.warnings.isNotEmpty) ...[
-            _WarningsPanel(warnings: report.roles.warnings),
+            WarningsPanel(warnings: report.roles.warnings),
             const SizedBox(height: 16),
           ],
-          _RoleDistribution(distribution: report.roles.distribution),
+          RoleDistribution(distribution: report.roles.distribution),
           const SizedBox(height: 16),
-          _OffensiveCoverage(offensive: report.typeCoverage.offensive),
+          OffensiveCoverage(offensive: report.typeCoverage.offensive),
           const SizedBox(height: 16),
-          _DefensiveProfile(coverage: report.typeCoverage),
+          DefensiveProfile(coverage: report.typeCoverage),
           const SizedBox(height: 16),
-          _SpeedTiers(speedTiers: report.stats.speedTiers),
+          SpeedTiers(speedTiers: report.stats.speedTiers),
           const SizedBox(height: 24),
         ],
       ),
@@ -41,11 +41,11 @@ class EvalResultsScreen extends StatelessWidget {
 }
 
 // ── Panel wrapper ────────────────────────────────────────────────────
-class _Panel extends StatelessWidget {
+class Panel extends StatelessWidget {
   final String title;
   final Widget child;
 
-  const _Panel({required this.title, required this.child});
+  const Panel({required this.title, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -71,24 +71,24 @@ class _Panel extends StatelessWidget {
 }
 
 // ── Team Overview ────────────────────────────────────────────────────
-class _TeamOverview extends StatelessWidget {
+class TeamOverview extends StatelessWidget {
   final List<TeamMember> team;
-  const _TeamOverview({required this.team});
+  const TeamOverview({required this.team});
 
   @override
   Widget build(BuildContext context) {
-    return _Panel(
+    return Panel(
       title: '// TEAM OVERVIEW',
       child: Column(
-        children: team.map((m) => _MemberCard(member: m)).toList(),
+        children: team.map((m) => MemberCard(member: m)).toList(),
       ),
     );
   }
 }
 
-class _MemberCard extends StatelessWidget {
+class MemberCard extends StatelessWidget {
   final TeamMember member;
-  const _MemberCard({required this.member});
+  const MemberCard({required this.member});
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +149,7 @@ class _MemberCard extends StatelessWidget {
           const SizedBox(height: 8),
           // Stat bars
           ...['hp','attack','defense','sp_atk','sp_def','speed']
-              .map((s) => _StatBar(
+              .map((s) => StatBar(
             label: s.toUpperCase().replaceAll('_', ' '),
             value: member.stats[s] ?? 0,
           )),
@@ -159,10 +159,10 @@ class _MemberCard extends StatelessWidget {
   }
 }
 
-class _StatBar extends StatelessWidget {
+class StatBar extends StatelessWidget {
   final String label;
   final int value;
-  const _StatBar({required this.label, required this.value});
+  const StatBar({required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -200,9 +200,9 @@ class _StatBar extends StatelessWidget {
 }
 
 // ── Warnings ─────────────────────────────────────────────────────────
-class _WarningsPanel extends StatelessWidget {
+class WarningsPanel extends StatelessWidget {
   final List<String> warnings;
-  const _WarningsPanel({required this.warnings});
+  const WarningsPanel({required this.warnings});
 
   @override
   Widget build(BuildContext context) {
@@ -226,14 +226,14 @@ class _WarningsPanel extends StatelessWidget {
 }
 
 // ── Role Distribution ─────────────────────────────────────────────────
-class _RoleDistribution extends StatelessWidget {
+class RoleDistribution extends StatelessWidget {
   final Map<String, int> distribution;
-  const _RoleDistribution({required this.distribution});
+  const RoleDistribution({required this.distribution});
 
   @override
   Widget build(BuildContext context) {
     final max = distribution.values.fold(0, (a, b) => a > b ? a : b);
-    return _Panel(
+    return Panel(
       title: '// ROLE DISTRIBUTION',
       child: Column(
         children: distribution.entries.map((e) => Padding(
@@ -270,9 +270,9 @@ class _RoleDistribution extends StatelessWidget {
 }
 
 // ── Offensive Coverage ────────────────────────────────────────────────
-class _OffensiveCoverage extends StatelessWidget {
+class OffensiveCoverage extends StatelessWidget {
   final Map<String, double> offensive;
-  const _OffensiveCoverage({required this.offensive});
+  const OffensiveCoverage({required this.offensive});
 
   Color _cellColor(double eff) {
     if (eff == 0)    return const Color(0xFF1A1A2E);
@@ -302,7 +302,7 @@ class _OffensiveCoverage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final types = offensive.keys.toList();
-    return _Panel(
+    return Panel(
       title: '// OFFENSIVE COVERAGE',
       child: GridView.count(
         crossAxisCount: 3,
@@ -339,13 +339,13 @@ class _OffensiveCoverage extends StatelessWidget {
 }
 
 // ── Defensive Profile ─────────────────────────────────────────────────
-class _DefensiveProfile extends StatelessWidget {
+class DefensiveProfile extends StatelessWidget {
   final TypeCoverage coverage;
-  const _DefensiveProfile({required this.coverage});
+  const DefensiveProfile({required this.coverage});
 
   @override
   Widget build(BuildContext context) {
-    return _Panel(
+    return Panel(
       title: '// DEFENSIVE PROFILE',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -403,9 +403,9 @@ class _DefensiveProfile extends StatelessWidget {
 }
 
 // ── Speed Tiers ───────────────────────────────────────────────────────
-class _SpeedTiers extends StatelessWidget {
+class SpeedTiers extends StatelessWidget {
   final List<List<dynamic>> speedTiers;
-  const _SpeedTiers({required this.speedTiers});
+  const SpeedTiers({required this.speedTiers});
 
   @override
   Widget build(BuildContext context) {
@@ -413,7 +413,7 @@ class _SpeedTiers extends StatelessWidget {
         ? (speedTiers.first[1] as num).toDouble()
         : 1.0;
 
-    return _Panel(
+    return Panel(
       title: '// SPEED TIERS',
       child: Column(
         children: speedTiers.map((tier) {
