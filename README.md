@@ -101,3 +101,14 @@ flutter run --release
 - [ ] Offline mode — bundle data locally
 - [ ] Saved teams
 - [ ] Shareable team URLs
+
+---
+
+## Download
+
+**[Download APK (v1.0.0)](https://github.com/Besfort21/poke-team-eval-mobile/releases/tag/v1.0.0)**
+
+To install:
+1. Download the APK on your Android device
+2. Enable **Install from unknown sources** in Settings
+3. Open the downloaded APK and install
