@@ -50,7 +50,7 @@ class _FilledSlot extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                pokemon.name,
+                pokemon.displayName,
                 style: AppTextStyles.mono(11, color: AppColors.text),
                 overflow: TextOverflow.ellipsis,
               ),

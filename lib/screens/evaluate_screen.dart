@@ -146,7 +146,7 @@ class _EvaluateScreenState extends State<EvaluateScreen> {
                           horizontal: 14, vertical: 10),
                       child: Row(
                         children: [
-                          Text(mon.name,
+                          Text(mon.displayName,
                               style: AppTextStyles.mono(13,
                                   color: AppColors.text)),
                           const SizedBox(width: 10),

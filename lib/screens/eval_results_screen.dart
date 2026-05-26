@@ -106,7 +106,7 @@ class MemberCard extends StatelessWidget {
           // Name + types + BST
           Row(
             children: [
-              Text(member.name,
+              Text(member.displayName,
                   style: AppTextStyles.mono(14, color: AppColors.text)),
               const SizedBox(width: 8),
               ...member.types.map((t) => Padding(

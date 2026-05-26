@@ -24,6 +24,7 @@ class KeyMove {
 
 class TeamMember {
   final String name;
+  final String displayName;
   final List<String> types;
   final String role;
   final int bst;
@@ -32,6 +33,7 @@ class TeamMember {
 
   TeamMember({
     required this.name,
+    required this.displayName,
     required this.types,
     required this.role,
     required this.bst,
@@ -47,6 +49,7 @@ class TeamMember {
         .toList();
     return TeamMember(
       name: json['name'] as String,
+      displayName: json['display_name'] as String? ?? json['name'] as String,
       types: List<String>.from(json['types']),
       role: json['role'] as String,
       bst: json['bst'] as int,

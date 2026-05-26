@@ -60,7 +60,7 @@ class BuildResultsScreen extends StatelessWidget {
                       Text('${i + 1}. ',
                           style: AppTextStyles.pixel(7,
                               color: AppColors.textMuted)),
-                      Text(mon.name,
+                      Text(mon.displayName,
                           style: AppTextStyles.mono(14,
                               color: AppColors.text)),
                       const SizedBox(width: 8),
