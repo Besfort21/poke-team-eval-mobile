@@ -31,6 +31,31 @@ The app is a **thin client** — all Pokémon logic runs on the
 [Python backend](https://github.com/Besfort21/poke-team-eval).
 The app handles input, API calls, and rendering only.
 
+### Key Design Decisions
+
+**Thin client** — zero game logic in the app. If the evaluator algorithm
+improves on the backend, the app benefits immediately with no update required.
+
+**Server warm-up on launch** — the app silently calls `/api/generations`
+on startup so the Render free-tier server is warm by the time the user
+picks a generation and adds Pokémon.
+
+**Debounced autocomplete** — search waits 250ms after the last keystroke
+before calling the API, reducing unnecessary network calls while still
+feeling responsive.
+
+**Display name separation** — Pokémon are stored internally by their
+PokéAPI name (`marowak-alola`) but displayed using a human-readable
+display name (`Alolan Marowak`). This keeps the API clean while the
+UI remains user-friendly.
+
+---
+
+## System Design
+
+The mobile app is a **thin client** by design. All Pokémon logic runs on
+the Python backend — the app only handles input, API calls, and rendering.
+
 ---
 
 ## Backend
